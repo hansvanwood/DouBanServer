@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.movie.dao.MovieCommentDao">
+
+    <!-- 根据电影ID分页查询评论，按评论时间倒序 -->
+    <select id="selectByMovieId" resultType="com.example.movie.dto.response.MovieCommentResponse">
+        SELECT
+            comment_id, user_nickname, comment_content, like_count, rating, comment_time
+        FROM movie_comment
+        WHERE movie_id = #{movieId}
+        ORDER BY comment_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- 根据电影ID统计评论总数 -->
+    <select id="countByMovieId" resultType="long">
+        SELECT COUNT(*)
+        FROM movie_comment
+        WHERE movie_id = #{movieId}
+    </select>
+
+</mapper>

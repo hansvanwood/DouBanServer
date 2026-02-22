@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.movie.dao.MovieDao">
+
+    <!-- 电影概览列表查询 -->
+    <select id="selectMovieList" resultType="com.example.movie.dto.response.MovieOverviewResponse">
+        SELECT
+            movie_id, movie_name, movie_alias, cover, directors, actors,
+            douban_score, douban_votes, type, languages, regions, minutes,
+            release_date, year
+        FROM movie
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND (movie_name LIKE #{keyword}
+                     OR movie_alias LIKE #{keyword}
+                     OR actors LIKE #{keyword}
+                     OR directors LIKE #{keyword})
+            </if>
+            <if test="type != null and type != ''">
+                AND type LIKE #{type}
+            </if>
+            <if test="language != null and language != ''">
+                AND languages LIKE #{language}
+            </if>
+            <if test="region != null and region != ''">
+                AND regions LIKE #{region}
+            </if>
+            <if test="year != null">
+                AND year = #{year}
+            </if>
+            <if test="minMinutes != null">
+                AND minutes &gt;= #{minMinutes}
+            </if>
+            <if test="maxMinutes != null">
+                AND minutes &lt;= #{maxMinutes}
+            </if>
+        </where>
+        ORDER BY ${sortField} ${sortOrder}
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- 电影列表计数查询 -->
+    <select id="countMovieList" resultType="long">
+        SELECT COUNT(*)
+        FROM movie
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND (movie_name LIKE #{keyword}
+                     OR movie_alias LIKE #{keyword}
+                     OR actors LIKE #{keyword}
+                     OR directors LIKE #{keyword})
+            </if>
+            <if test="type != null and type != ''">
+                AND type LIKE #{type}
+            </if>
+            <if test="language != null and language != ''">
+                AND languages LIKE #{language}
+            </if>
+            <if test="region != null and region != ''">
+                AND regions LIKE #{region}
+            </if>
+            <if test="year != null">
+                AND year = #{year}
+            </if>
+            <if test="minMinutes != null">
+                AND minutes &gt;= #{minMinutes}
+            </if>
+            <if test="maxMinutes != null">
+                AND minutes &lt;= #{maxMinutes}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据ID查询电影详情 -->
+    <select id="selectById" resultType="com.example.movie.entity.Movie">
+        SELECT * FROM movie WHERE movie_id = #{movieId}
+    </select>
+
+</mapper>
