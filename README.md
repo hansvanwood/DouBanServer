@@ -110,6 +110,7 @@ src/main/java/com/example/movie/
 │       ├── MovieOverviewResponse.java
 │       ├── MovieDetailResponse.java
 │       ├── MovieCommentResponse.java
+│       ├── MovieStatsResponse.java
 │       └── MovieWorkerResponse.java
 └── entity/                         # 实体类
     ├── Movie.java
@@ -122,7 +123,8 @@ src/main/java/com/example/movie/
 | 方法 | 接口地址 | 说明 |
 |------|---------|------|
 | POST | `/api/movies/list` | 电影列表（分页+筛选+排序） |
-| GET | `/api/movies/{movieId}` | 电影详情（含最新20条评论） |
+| GET | `/api/movies/stats` | 电影统计数据 |
+| GET | `/api/movies/{movieId}` | 电影详情（含最新20条评论与评论总数） |
 | GET | `/api/comments/{movieId}` | 电影评论分页 |
 | GET | `/api/workers/{workerId}` | 工作者详情 |
 

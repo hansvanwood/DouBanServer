@@ -109,7 +109,27 @@
 
 ---
 
-## 二、电影详情
+## 二、电影统计数据
+
+`GET /movies/stats`
+
+### 响应示例
+
+```json
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": {
+    "movieCount": 140502,
+    "commentCount": 4428475,
+    "workerCount": 70001
+  }
+}
+```
+
+---
+
+## 三、电影详情
 
 `GET /movies/{movieId}`
 
@@ -146,6 +166,7 @@
     "year": 1993,
     "actorIds": "张国荣:1003494|张丰毅:1050265|巩俐:1035641",
     "directorIds": "陈凯歌:1023040",
+    "commentTotal": 520,
     "comments": [
       {
         "commentId": 12345,
@@ -180,7 +201,7 @@
 
 ---
 
-## 三、电影评论分页
+## 四、电影评论分页
 
 `GET /comments/{movieId}`
 
@@ -235,7 +256,7 @@ GET /api/comments/1291546?pageNum=1&pageSize=10
 
 ---
 
-## 四、工作者详情
+## 五、工作者详情
 
 `GET /workers/{workerId}`
 
@@ -284,7 +305,7 @@ GET /api/workers/1003494
 
 ---
 
-## 五、通用错误响应
+## 六、通用错误响应
 
 ### 参数校验失败（400）
 

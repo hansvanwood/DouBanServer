@@ -140,6 +140,18 @@ BREAKING CHANGE: 移除 /api/v1/user/list 接口，请迁移至 /api/v2/user/pag
 ### 示例 1：新增功能
 
 ```
+feat(movie): 新增电影统计数据接口
+
+为了在后台首页展示全局数据，新增 GET /movies/stats 接口。
+统计包含电影总数、评论总数和工作者总数。
+因表数据量大且静态，已在 Service 层加入 volatile 变量缓存。
+
+Closes #15
+```
+
+### 示例 2：新增功能（其他场景）
+
+```
 feat(order): 新增订单超时自动取消功能
 
 接入 RocketMQ 延迟消息，下单后 30 分钟未支付自动关闭订单并释放库存。
