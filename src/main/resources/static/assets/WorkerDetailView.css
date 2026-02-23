@@ -1,0 +1,163 @@
+
+.detail-loading[data-v-ada15945],
+.detail-not-found[data-v-ada15945] {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  padding: 24px;
+}
+.spinner[data-v-ada15945] {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin-ada15945 0.8s linear infinite;
+}
+@keyframes spin-ada15945 {
+to { transform: rotate(360deg);
+}
+}
+.detail-not-found h2[data-v-ada15945] { font-size: 22px;
+}
+.detail-not-found p[data-v-ada15945] { color: var(--color-text-muted); margin-bottom: 12px;
+}
+.worker-detail-page[data-v-ada15945] {
+  padding-top: 32px;
+  padding-bottom: 60px;
+}
+
+/* Hero */
+.worker-hero[data-v-ada15945] {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+.worker-avatar[data-v-ada15945] {
+  flex-shrink: 0;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+.worker-info[data-v-ada15945] {
+  flex: 1;
+  min-width: 0;
+}
+.worker-name-zh[data-v-ada15945] {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.worker-name-en[data-v-ada15945] {
+  font-size: 16px;
+  color: var(--color-text-muted);
+  margin-bottom: 14px;
+}
+.worker-professions[data-v-ada15945] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.info-list[data-v-ada15945] {
+  margin-top: 8px;
+}
+.info-row[data-v-ada15945] {
+  display: flex;
+  gap: 12px;
+  padding: 5px 0;
+  font-size: 14px;
+}
+.info-label[data-v-ada15945] {
+  flex-shrink: 0;
+  width: 64px;
+  color: var(--color-text-muted);
+  text-align: right;
+}
+.info-value[data-v-ada15945] {
+  flex: 1;
+}
+
+/* 简介 */
+.content-section[data-v-ada15945] {
+  margin-bottom: 36px;
+}
+.bio-text[data-v-ada15945] {
+  font-size: 15px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.bio-empty[data-v-ada15945] {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* 相关作品 */
+.related-header[data-v-ada15945] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.related-header .section-title[data-v-ada15945] {
+  margin-bottom: 0;
+}
+.btn-sm[data-v-ada15945] {
+  padding: 6px 16px;
+  font-size: 13px;
+}
+.related-loading[data-v-ada15945] {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+.related-grid[data-v-ada15945] {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+.worker-hero[data-v-ada15945] {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.worker-avatar[data-v-ada15945] {
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+}
+.worker-name-zh[data-v-ada15945] {
+    font-size: 24px;
+}
+.info-row[data-v-ada15945] {
+    flex-direction: column;
+    gap: 2px;
+}
+.info-label[data-v-ada15945] {
+    width: auto;
+    text-align: center;
+}
+.worker-professions[data-v-ada15945] {
+    justify-content: center;
+}
+.related-grid[data-v-ada15945] {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
+}
+}

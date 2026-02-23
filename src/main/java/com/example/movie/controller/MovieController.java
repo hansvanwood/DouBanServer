@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * 电影接口控制器
  */
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/api/movies")
 @RequiredArgsConstructor
 @Tag(name = "电影模块", description = "电影查询相关接口，包括列表、详情和评论")
 public class MovieController {

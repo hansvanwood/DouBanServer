@@ -1,0 +1,346 @@
+
+.star-rating[data-v-e3974d73] {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.star-item[data-v-e3974d73] {
+  display: inline-flex;
+}
+.star-icon[data-v-e3974d73] {
+  flex-shrink: 0;
+}
+.star-full[data-v-e3974d73] {
+  color: var(--color-gold);
+}
+.star-empty[data-v-e3974d73] {
+  color: #444;
+}
+
+/* 尺寸 */
+.star-sm .star-icon[data-v-e3974d73] { width: 14px; height: 14px;
+}
+.star-md .star-icon[data-v-e3974d73] { width: 18px; height: 18px;
+}
+.star-lg .star-icon[data-v-e3974d73] { width: 22px; height: 22px;
+}
+
+/* 加载与错误状态 */
+.detail-loading[data-v-095b1214],
+.detail-not-found[data-v-095b1214] {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  padding: 24px;
+}
+.spinner[data-v-095b1214] {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin-095b1214 0.8s linear infinite;
+}
+@keyframes spin-095b1214 {
+to { transform: rotate(360deg);
+}
+}
+.detail-not-found h2[data-v-095b1214] {
+  font-size: 22px;
+}
+.detail-not-found p[data-v-095b1214] {
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+/* Hero 区 */
+.hero-section[data-v-095b1214] {
+  position: relative;
+  min-height: 480px;
+  overflow: hidden;
+}
+.hero-bg[data-v-095b1214] {
+  position: absolute;
+  inset: 0;
+}
+.hero-bg-img[data-v-095b1214] {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(30px) brightness(0.4);
+  transform: scale(1.1);
+}
+.hero-overlay[data-v-095b1214] {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+.hero-content[data-v-095b1214] {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 32px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  align-items: flex-start;
+}
+.hero-poster[data-v-095b1214] {
+  flex-shrink: 0;
+  width: 240px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+.hero-poster img[data-v-095b1214] {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+.poster-placeholder[data-v-095b1214] {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: #252525;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  opacity: 0.3;
+}
+.hero-info[data-v-095b1214] {
+  flex: 1;
+  min-width: 0;
+}
+.movie-title[data-v-095b1214] {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.movie-alias[data-v-095b1214] {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+/* 评分 */
+.rating-block[data-v-095b1214] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+.rating-score[data-v-095b1214] {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--color-gold);
+  line-height: 1;
+}
+.rating-votes[data-v-095b1214] {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* 信息列表 */
+.info-list[data-v-095b1214] {
+  margin-bottom: 16px;
+}
+.info-row[data-v-095b1214] {
+  display: flex;
+  gap: 12px;
+  padding: 6px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.info-label[data-v-095b1214] {
+  flex-shrink: 0;
+  width: 50px;
+  color: var(--color-text-muted);
+  text-align: right;
+}
+.info-value[data-v-095b1214] {
+  flex: 1;
+  min-width: 0;
+}
+.worker-link[data-v-095b1214] {
+  color: var(--color-primary);
+  transition: opacity var(--transition);
+}
+.worker-link[data-v-095b1214]:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+.expand-btn[data-v-095b1214] {
+  color: var(--color-primary);
+  font-size: 13px;
+  margin-left: 8px;
+  text-decoration: underline;
+}
+.external-link[data-v-095b1214] {
+  color: var(--color-primary);
+  transition: opacity var(--transition);
+}
+.external-link[data-v-095b1214]:hover {
+  opacity: 0.8;
+}
+
+/* 标签 */
+.tags-cloud[data-v-095b1214] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* 内容区 */
+.content-section[data-v-095b1214] {
+  padding-top: 32px;
+  padding-bottom: 16px;
+}
+.description-text[data-v-095b1214] {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--color-text);
+  white-space: pre-wrap;
+}
+
+/* 演职人员 */
+.cast-scroll[data-v-095b1214] {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.cast-card[data-v-095b1214] {
+  flex-shrink: 0;
+  width: 90px;
+  text-align: center;
+  transition: transform var(--transition);
+}
+.cast-card[data-v-095b1214]:hover {
+  transform: translateY(-2px);
+}
+.cast-avatar[data-v-095b1214] {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin: 0 auto 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+}
+.cast-name[data-v-095b1214] {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cast-role[data-v-095b1214] {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* 评论 */
+.comment-loading[data-v-095b1214] {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+.comment-empty[data-v-095b1214] {
+  padding: 40px;
+  text-align: center;
+}
+.empty-hint[data-v-095b1214] {
+  color: var(--color-text-muted);
+}
+.comment-list[data-v-095b1214] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.comment-card[data-v-095b1214] {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+}
+.comment-avatar[data-v-095b1214] {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+.comment-body[data-v-095b1214] {
+  flex: 1;
+  min-width: 0;
+}
+.comment-header[data-v-095b1214] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.comment-nick[data-v-095b1214] {
+  font-weight: 600;
+  font-size: 14px;
+}
+.comment-content[data-v-095b1214] {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 10px;
+  color: var(--color-text);
+}
+.comment-footer[data-v-095b1214] {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+.hero-content[data-v-095b1214] {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.hero-poster[data-v-095b1214] {
+    width: 180px;
+}
+.movie-title[data-v-095b1214] {
+    font-size: 24px;
+}
+.info-row[data-v-095b1214] {
+    flex-direction: column;
+    gap: 2px;
+}
+.info-label[data-v-095b1214] {
+    width: auto;
+    text-align: left;
+}
+.rating-block[data-v-095b1214] {
+    margin: 0 auto 20px;
+}
+.tags-cloud[data-v-095b1214] {
+    justify-content: center;
+}
+}

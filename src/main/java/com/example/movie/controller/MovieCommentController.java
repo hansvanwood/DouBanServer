@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 电影接口控制器
  */
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/api/comments")
 @RequiredArgsConstructor
 @Tag(name = "电影评论模块", description = "电影评论相关接口")
 public class MovieCommentController {
