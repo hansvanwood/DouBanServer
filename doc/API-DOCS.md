@@ -50,19 +50,19 @@
 
 ### 请求参数（JSON Body）
 
-| 字段 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| keyword | String | 否 | - | 模糊搜索，匹配电影名/别名/演员/导演 |
-| type | String | 否 | - | 电影类型，如 `剧情` |
-| language | String | 否 | - | 语言，如 `英语` |
-| region | String | 否 | - | 制片国家/地区，如 `美国` |
-| year | Integer | 否 | - | 上映年份（≥1888） |
-| minMinutes | Integer | 否 | - | 最短时长（分钟，≥0） |
-| maxMinutes | Integer | 否 | - | 最长时长（分钟，≥0） |
-| sortField | String | 否 | `douban_score` | 排序字段：`movie_name` / `movie_alias` / `release_date` / `douban_score` |
-| sortOrder | String | 否 | `desc` | 排序方向：`asc` / `desc` |
-| pageNum | Integer | 是 | 1 | 页码（≥1） |
-| pageSize | Integer | 是 | 20 | 每页条数（1~200） |
+| 字段 | 类型 | 必填 | 默认值 | 说明                                                                              |
+|------|------|------|--------|---------------------------------------------------------------------------------|
+| keyword | String | 否 | - | 模糊搜索，匹配电影名/别名/演员/导演                                                             |
+| type | String | 否 | - | 电影类型，如 `剧情`                                                                     |
+| language | String | 否 | - | 语言，如 `英语`                                                                       |
+| region | String | 否 | - | 制片国家/地区，如 `美国`                                                                  |
+| year | Integer | 否 | - | 上映年份（≥1888）                                                                     |
+| minMinutes | Integer | 否 | - | 最短时长（分钟，≥0）                                                                     |
+| maxMinutes | Integer | 否 | - | 最长时长（分钟，≥0）                                                                     |
+| sortField | String | 否 | `douban_score` | 排序字段：`movie_name` / `movie_alias` / `release_date` / `minutes` / `douban_score` |
+| sortOrder | String | 否 | `desc` | 排序方向：`asc` / `desc`                                                             |
+| pageNum | Integer | 是 | 1 | 页码（≥1）                                                                          |
+| pageSize | Integer | 是 | 20 | 每页条数（1~200）                                                                     |
 
 ### 请求示例
 
@@ -324,5 +324,48 @@ GET /api/workers/1003494
   "code": 500,
   "message": "服务器内部错误",
   "data": null
+}
+```
+## 七、可筛选的地区、语言、类型
+
+### 获取可筛选的国家或地区列表
+
+`GET /movies/regions`
+
+#### 响应示例
+
+```json
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": ["中国","美国","日本","韩国","英国","泰国","印度","德国","西班牙","澳大利亚"]
+}
+```
+
+### 获取可筛选的电影语言列表
+
+`GET /movies/languages`
+
+#### 响应示例
+
+```json
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": ["汉语普通话","英语","日语","西班牙语","葡萄牙语","韩语","泰语","印地语","法语","德语","意大利语","粤语","拉丁语","俄语","挪威语","荷兰语","手语"]
+}
+```
+
+### 获取可筛选的电影类型列表
+
+`GET /movies/genres`
+
+#### 响应示例
+
+```json
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": ["喜剧","科幻","动作","奇幻","冒险","战争","剧情","动画","爱情","悬疑","犯罪","惊悚","传记","运动","歌舞","家庭","音乐","历史","灾难","真人秀","剧情","奇幻","冒险","家庭","爱情","同性","动作","犯罪","音乐","惊悚","情色","动画","歌舞","科幻","喜剧","儿童","历史","战争","悬疑","传记","西部","恐怖","古装","武侠","灾难","黑色电影","运动","惊栗","荒诞","悬念","戏曲","记录","Adult","Reality-TV","Comedy","纪录片","短片","懸疑 Mystery","舞台艺术","鬼怪","真人秀","劇情 Drama","驚悚 Thriller","紀錄片 Documentary","音樂 Music","News","脱口秀","傳記 Biography","愛情 Romance","動作 Action","Talk-Show","動畫 Animation","兒童 Kids","喜劇 Comedy","歷史 History"]
 }
 ```
