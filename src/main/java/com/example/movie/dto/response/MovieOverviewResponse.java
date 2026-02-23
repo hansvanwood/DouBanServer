@@ -49,7 +49,7 @@ public class MovieOverviewResponse {
     @Schema(description = "时长（分钟）")
     private Integer minutes;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @Schema(description = "上映日期")
     private Date releaseDate;
 
