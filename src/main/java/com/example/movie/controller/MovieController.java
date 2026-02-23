@@ -5,6 +5,7 @@ import com.example.movie.common.Result;
 import com.example.movie.dto.request.MovieListRequest;
 import com.example.movie.dto.response.MovieDetailResponse;
 import com.example.movie.dto.response.MovieOverviewResponse;
+import com.example.movie.dto.response.MovieStatsResponse;
 import com.example.movie.service.MovieService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,6 +24,15 @@ import org.springframework.web.bind.annotation.*;
 public class MovieController {
 
     private final MovieService movieService;
+
+    /**
+     * 电影统计数据
+     */
+    @GetMapping("/stats")
+    @Operation(summary = "电影统计数据", description = "统计电影数量、评论数量和电影制作人数量")
+    public Result<MovieStatsResponse> getMovieStats() {
+        return Result.success(movieService.getMovieStats());
+    }
 
     /**
      * 电影概览列表（分页+筛选+排序）

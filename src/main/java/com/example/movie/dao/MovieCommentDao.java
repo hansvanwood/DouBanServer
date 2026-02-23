@@ -3,6 +3,7 @@ package com.example.movie.dao;
 import com.example.movie.dto.response.MovieCommentResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -11,6 +12,12 @@ import java.util.List;
  */
 @Mapper
 public interface MovieCommentDao {
+
+    /**
+     * 统计评论总数
+     */
+    @Select("SELECT COUNT(*) FROM movie_comment")
+    long countAll();
 
     /**
      * 根据电影ID分页查询评论，按评论时间倒序

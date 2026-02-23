@@ -5,10 +5,12 @@ import com.example.movie.common.ResultCode;
 import com.example.movie.common.exception.BusinessException;
 import com.example.movie.dao.MovieCommentDao;
 import com.example.movie.dao.MovieDao;
+import com.example.movie.dao.MovieWorkerDao;
 import com.example.movie.dto.request.MovieListRequest;
 import com.example.movie.dto.response.MovieCommentResponse;
 import com.example.movie.dto.response.MovieDetailResponse;
 import com.example.movie.dto.response.MovieOverviewResponse;
+import com.example.movie.dto.response.MovieStatsResponse;
 import com.example.movie.entity.Movie;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,10 @@ public class MovieService {
 
     private final MovieDao movieDao;
     private final MovieCommentDao movieCommentDao;
+    private final MovieWorkerDao movieWorkerDao;
+
+    /** 统计数据缓存（数据库数据不变，缓存永不失效） */
+    private volatile MovieStatsResponse cachedStats;
 
     /** 排序字段白名单 */
     private static final Set<String> SORT_FIELD_WHITELIST = Set.of(
@@ -98,6 +104,24 @@ public class MovieService {
         response.setComments(comments);
 
         return response;
+    }
+
+    /**
+     * 获取电影统计数据（带类变量缓存）
+     */
+    public MovieStatsResponse getMovieStats() {
+        if (cachedStats == null) {
+            synchronized (this) {
+                if (cachedStats == null) {
+                    long movieCount = movieDao.countAll();
+                    long commentCount = movieCommentDao.countAll();
+                    long workerCount = movieWorkerDao.countAll();
+                    cachedStats = new MovieStatsResponse(movieCount, commentCount, workerCount);
+                    log.info("统计数据已缓存: 电影={}, 评论={}, 制作人={}", movieCount, commentCount, workerCount);
+                }
+            }
+        }
+        return cachedStats;
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.movie.dao;
 import com.example.movie.entity.MovieWorker;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -11,6 +12,12 @@ import java.util.List;
  */
 @Mapper
 public interface MovieWorkerDao {
+
+    /**
+     * 统计电影工作者总数
+     */
+    @Select("SELECT COUNT(*) FROM movie_worker")
+    long countAll();
 
     /**
      * 根据工作者ID查询单个工作者
