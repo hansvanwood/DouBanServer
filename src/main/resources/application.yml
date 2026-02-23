@@ -1,28 +1,17 @@
-server:
-  port: 8080
-  servlet:
-    context-path: /api
-
 spring:
+  profiles:
+    active: dev # 选择启用的配置文件
   application:
-    name: movie-api
-  datasource:
-    url: jdbc:mysql://localhost:3306/douban_movie?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  devtools:
-    restart:
-      enabled: true
+    name: movie-api # 应用名称
+
+server:
+  port: 8080 # 服务器端口
+  servlet:
+    context-path: /api # 服务器上下文路径
 
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.example.movie.entity
+  mapper-locations: classpath:mapper/*.xml # Mapper文件位置
+  type-aliases-package: com.example.movie.entity # 类型别名包
   configuration:
-    map-underscore-to-camel-case: true
+    map-underscore-to-camel-case: true # 下划线转驼峰
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 日志实现类，这里使用标准输出
-
-knife4j:
-  enable: true
-  setting:
-    language: zh_cn

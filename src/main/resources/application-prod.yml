@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/douban_movie_prod?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowMultiQueries=true # 数据库连接URL
+    username: root # 数据库用户名
+    password: 123456 # 数据库密码
+    driver-class-name: com.mysql.cj.jdbc.Driver # 数据库驱动类
+  devtools:
+    restart:
+      enabled: false # 生产环境下关闭自动重启
+
+knife4j:
+  enable: false # 生产环境下关闭Knife4j接口文档
+  setting:
+    language: zh_cn # 语言设置为中文
