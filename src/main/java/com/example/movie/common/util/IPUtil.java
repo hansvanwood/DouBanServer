@@ -30,14 +30,12 @@ public class IPUtil {
         try {
             List<InetAddress> candidates = new ArrayList<>();
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-            if (interfaces != null) {
-                for (NetworkInterface ni : Collections.list(interfaces)) {
-                    if (!ni.isUp() || ni.isLoopback() || ni.isVirtual()) continue;
-                    // 物理网卡或常见真实网卡优先（排除虚拟网桥/VPN 等）
-                    for (InetAddress addr : Collections.list(ni.getInetAddresses())) {
-                        if (addr instanceof Inet4Address && !addr.isLoopbackAddress()) {
-                            candidates.add(addr);
-                        }
+            for (NetworkInterface ni : Collections.list(interfaces)) {
+                if (!ni.isUp() || ni.isLoopback() || ni.isVirtual()) continue;
+                // 物理网卡或常见真实网卡优先（排除虚拟网桥/VPN 等）
+                for (InetAddress addr : Collections.list(ni.getInetAddresses())) {
+                    if (addr instanceof Inet4Address && !addr.isLoopbackAddress()) {
+                        candidates.add(addr);
                     }
                 }
             }
@@ -64,15 +62,13 @@ public class IPUtil {
         try {
             List<InetAddress> candidates = new ArrayList<>();
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-            if (interfaces != null) {
-                for (NetworkInterface ni : Collections.list(interfaces)) {
-                    if (!ni.isUp() || ni.isLoopback() || ni.isVirtual()) continue;
-                    for (InetAddress addr : Collections.list(ni.getInetAddresses())) {
-                        if (addr instanceof Inet6Address
-                                && !addr.isLoopbackAddress()
-                                && !addr.isLinkLocalAddress()) {
-                            candidates.add(addr);
-                        }
+            for (NetworkInterface ni : Collections.list(interfaces)) {
+                if (!ni.isUp() || ni.isLoopback() || ni.isVirtual()) continue;
+                for (InetAddress addr : Collections.list(ni.getInetAddresses())) {
+                    if (addr instanceof Inet6Address
+                            && !addr.isLoopbackAddress()
+                            && !addr.isLinkLocalAddress()) {
+                        candidates.add(addr);
                     }
                 }
             }
@@ -92,7 +88,6 @@ public class IPUtil {
         List<String> result = new ArrayList<>();
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-            if (interfaces == null) return result;
             for (NetworkInterface ni : Collections.list(interfaces)) {
                 if (!ni.isUp() || ni.isLoopback()) continue;
                 for (InetAddress addr : Collections.list(ni.getInetAddresses())) {
@@ -124,10 +119,6 @@ public class IPUtil {
     public static void printNetworkInterfaces() {
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-            if (interfaces == null) {
-                System.out.println("No network interfaces found.");
-                return;
-            }
             for (NetworkInterface ni : Collections.list(interfaces)) {
                 System.out.printf("%-20s up=%-5b loopback=%-5b virtual=%-5b%n",
                         ni.getName(), ni.isUp(), ni.isLoopback(), ni.isVirtual());

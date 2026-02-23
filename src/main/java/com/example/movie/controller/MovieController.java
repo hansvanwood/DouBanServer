@@ -2,9 +2,7 @@ package com.example.movie.controller;
 
 import com.example.movie.common.PageResult;
 import com.example.movie.common.Result;
-import com.example.movie.dto.request.MovieCommentPageRequest;
 import com.example.movie.dto.request.MovieListRequest;
-import com.example.movie.dto.response.MovieCommentResponse;
 import com.example.movie.dto.response.MovieDetailResponse;
 import com.example.movie.dto.response.MovieOverviewResponse;
 import com.example.movie.service.MovieService;

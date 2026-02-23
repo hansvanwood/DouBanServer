@@ -5,23 +5,19 @@ import com.example.movie.common.ResultCode;
 import com.example.movie.common.exception.BusinessException;
 import com.example.movie.dao.MovieCommentDao;
 import com.example.movie.dao.MovieDao;
-import com.example.movie.dao.MovieWorkerDao;
-import com.example.movie.dto.request.MovieCommentPageRequest;
 import com.example.movie.dto.request.MovieListRequest;
 import com.example.movie.dto.response.MovieCommentResponse;
 import com.example.movie.dto.response.MovieDetailResponse;
 import com.example.movie.dto.response.MovieOverviewResponse;
-import com.example.movie.dto.response.MovieWorkerResponse;
 import com.example.movie.entity.Movie;
-import com.example.movie.entity.MovieWorker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 电影业务逻辑层
