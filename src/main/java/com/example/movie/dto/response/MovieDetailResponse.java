@@ -75,6 +75,9 @@ public class MovieDetailResponse {
     @Schema(description = "导演ID原始数据")
     private String directorIds;
 
+    @Schema(description = "该电影的评论总数")
+    private Long commentTotal;
+
     @Schema(description = "最新20条评论")
     private List<MovieCommentResponse> comments;
 }

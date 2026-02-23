@@ -99,6 +99,10 @@ public class MovieService {
         MovieDetailResponse response = new MovieDetailResponse();
         BeanUtils.copyProperties(movie, response);
 
+        // 查询评论总数（用于前端分页）
+        long commentTotal = movieCommentDao.countByMovieId(movieId);
+        response.setCommentTotal(commentTotal);
+
         // 查询最新20条评论
         List<MovieCommentResponse> comments = movieCommentDao.selectByMovieId(movieId, 0, 20);
         response.setComments(comments);
