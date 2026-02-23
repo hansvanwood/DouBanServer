@@ -1,5 +1,6 @@
 package com.example.movie.service;
 
+import com.example.movie.common.MovieFilterConstants;
 import com.example.movie.common.PageResult;
 import com.example.movie.common.ResultCode;
 import com.example.movie.common.exception.BusinessException;
@@ -15,6 +16,7 @@ import com.example.movie.entity.Movie;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -29,19 +31,25 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class MovieService {
 
+    /**
+     * 排序字段白名单
+     */
+    private static final Set<String> SORT_FIELD_WHITELIST = Set.of(
+            "movie_name", "movie_alias", "release_date", "minutes", "douban_score");
+
     private final MovieDao movieDao;
     private final MovieCommentDao movieCommentDao;
     private final MovieWorkerDao movieWorkerDao;
-
-    /** 统计数据缓存（数据库数据不变，缓存永不失效） */
-    private volatile MovieStatsResponse cachedStats;
-
-    /** 排序字段白名单 */
-    private static final Set<String> SORT_FIELD_WHITELIST = Set.of(
-            "movie_name", "movie_alias", "release_date", "douban_score");
-
-    /** 排序方向白名单 */
+    /**
+     * 排序方向白名单
+     */
     private static final Set<String> SORT_ORDER_WHITELIST = Set.of("asc", "desc");
+    @Value("${spring.profiles.active:dev}")
+    private String activeProfile;
+    /**
+     * 统计数据缓存（数据库数据不变，缓存永不失效）
+     */
+    private volatile MovieStatsResponse cachedStats;
 
     /**
      * 电影概览列表（分页+筛选+排序）
@@ -126,6 +134,30 @@ public class MovieService {
             }
         }
         return cachedStats;
+    }
+
+    /**
+     * 获取国家或地区列表
+     */
+    public List<String> getRegions() {
+        return "prod".equalsIgnoreCase(activeProfile) ? MovieFilterConstants.PROD_REGIONS
+                : MovieFilterConstants.DEV_REGIONS;
+    }
+
+    /**
+     * 获取电影语言列表
+     */
+    public List<String> getLanguages() {
+        return "prod".equalsIgnoreCase(activeProfile) ? MovieFilterConstants.PROD_LANGUAGES
+                : MovieFilterConstants.DEV_LANGUAGES;
+    }
+
+    /**
+     * 获取电影类型列表
+     */
+    public List<String> getTypes() {
+        return "prod".equalsIgnoreCase(activeProfile) ? MovieFilterConstants.PROD_TYPES
+                : MovieFilterConstants.DEV_TYPES;
     }
 
 }

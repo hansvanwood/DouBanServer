@@ -55,4 +55,31 @@ public class MovieController {
         return Result.success(detail);
     }
 
+    /**
+     * 获取可筛选的国家或地区列表
+     */
+    @GetMapping("/regions")
+    @Operation(summary = "获取国家或地区", description = "获取可用于筛选的国家或地区列表")
+    public Result<java.util.List<String>> getRegions() {
+        return Result.success(movieService.getRegions());
+    }
+
+    /**
+     * 获取可筛选的电影语言列表
+     */
+    @GetMapping("/languages")
+    @Operation(summary = "获取电影语言", description = "获取可用于筛选的电影语言列表")
+    public Result<java.util.List<String>> getLanguages() {
+        return Result.success(movieService.getLanguages());
+    }
+
+    /**
+     * 获取可筛选的电影类型列表
+     */
+    @GetMapping("/types")
+    @Operation(summary = "获取电影类型", description = "获取可用于筛选的电影类型列表")
+    public Result<java.util.List<String>> getTypes() {
+        return Result.success(movieService.getTypes());
+    }
+
 }
