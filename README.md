@@ -52,7 +52,7 @@ USE douban_movie;
 ```yaml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/douban_movie?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/douban_movie_dev?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: 你的密码
 ```
