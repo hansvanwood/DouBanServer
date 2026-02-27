@@ -34,9 +34,9 @@
 ### 2. 初始化数据库
 
 ```sql
-CREATE DATABASE IF NOT EXISTS douban_movie DEFAULT CHARACTER SET utf8mb4;
-USE douban_movie;
--- 执行 src/main/resources/douban_movie_schema.sql 建表
+CREATE DATABASE IF NOT EXISTS douban_movie_dev DEFAULT CHARACTER SET utf8mb4;
+USE douban_movie_dev;
+-- 执行 src/main/resources/douban_movie_dev.sql 建表
 -- 导入数据文件
 ```
 
@@ -47,12 +47,12 @@ USE douban_movie;
 
 ### 3. 修改配置
 
-编辑 `src/main/resources/application.yml`，修改数据库连接信息：
+编辑 `src/main/resources/application-dev.yml`，修改数据库连接信息：
 
 ```yaml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/douban_movie_dev?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/douban_movie_dev?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 你的密码
 ```
