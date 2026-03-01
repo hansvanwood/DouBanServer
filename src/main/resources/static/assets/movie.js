@@ -415,6 +415,13 @@ const utils$1 = {
   isIterable
 };
 let AxiosError$1 = class AxiosError extends Error {
+  static from(error, code, config, request2, response, customProps) {
+    const axiosError = new AxiosError(error.message, code || error.code, config, request2, response);
+    axiosError.cause = error;
+    axiosError.name = error.name;
+    customProps && Object.assign(axiosError, customProps);
+    return axiosError;
+  }
   /**
    * Create an Error with the specified message, config, error code, request and response.
    *
@@ -438,15 +445,6 @@ let AxiosError$1 = class AxiosError extends Error {
       this.status = response.status;
     }
   }
-
-  static from(error, code, config, request2, response, customProps) {
-    const axiosError = new AxiosError(error.message, code || error.code, config, request2, response);
-    axiosError.cause = error;
-    axiosError.name = error.name;
-    customProps && Object.assign(axiosError, customProps);
-    return axiosError;
-  }
-
   toJSON() {
     return {
       // Standard
@@ -1015,38 +1013,6 @@ let AxiosHeaders$1 = class AxiosHeaders {
   constructor(headers) {
     headers && this.set(headers);
   }
-
-  get [Symbol.toStringTag]() {
-    return "AxiosHeaders";
-  }
-
-  static from(thing) {
-    return thing instanceof this ? thing : new this(thing);
-  }
-
-  static concat(first, ...targets) {
-    const computed = new this(first);
-    targets.forEach((target) => computed.set(target));
-    return computed;
-  }
-
-  static accessor(header) {
-    const internals = this[$internals] = this[$internals] = {
-      accessors: {}
-    };
-    const accessors = internals.accessors;
-    const prototype2 = this.prototype;
-    function defineAccessor(_header) {
-      const lHeader = normalizeHeader(_header);
-      if (!accessors[lHeader]) {
-        buildAccessors(prototype2, _header);
-        accessors[lHeader] = true;
-      }
-    }
-    utils$1.isArray(header) ? header.forEach(defineAccessor) : defineAccessor(header);
-    return this;
-  }
-
   set(header, valueOrRewrite, rewrite) {
     const self2 = this;
     function setHeader(_value, _header, _rewrite) {
@@ -1078,7 +1044,6 @@ let AxiosHeaders$1 = class AxiosHeaders {
     }
     return this;
   }
-
   get(header, parser) {
     header = normalizeHeader(header);
     if (header) {
@@ -1101,7 +1066,6 @@ let AxiosHeaders$1 = class AxiosHeaders {
       }
     }
   }
-
   has(header, matcher) {
     header = normalizeHeader(header);
     if (header) {
@@ -1110,7 +1074,6 @@ let AxiosHeaders$1 = class AxiosHeaders {
     }
     return false;
   }
-
   delete(header, matcher) {
     const self2 = this;
     let deleted = false;
@@ -1131,7 +1094,6 @@ let AxiosHeaders$1 = class AxiosHeaders {
     }
     return deleted;
   }
-
   clear(matcher) {
     const keys = Object.keys(this);
     let i = keys.length;
@@ -1145,7 +1107,6 @@ let AxiosHeaders$1 = class AxiosHeaders {
     }
     return deleted;
   }
-
   normalize(format) {
     const self2 = this;
     const headers = {};
@@ -1165,11 +1126,9 @@ let AxiosHeaders$1 = class AxiosHeaders {
     });
     return this;
   }
-
   concat(...targets) {
     return this.constructor.concat(this, ...targets);
   }
-
   toJSON(asStrings) {
     const obj = /* @__PURE__ */ Object.create(null);
     utils$1.forEach(this, (value, header) => {
@@ -1177,17 +1136,41 @@ let AxiosHeaders$1 = class AxiosHeaders {
     });
     return obj;
   }
-
   [Symbol.iterator]() {
     return Object.entries(this.toJSON())[Symbol.iterator]();
   }
-
   toString() {
     return Object.entries(this.toJSON()).map(([header, value]) => header + ": " + value).join("\n");
   }
-
   getSetCookie() {
     return this.get("set-cookie") || [];
+  }
+  get [Symbol.toStringTag]() {
+    return "AxiosHeaders";
+  }
+  static from(thing) {
+    return thing instanceof this ? thing : new this(thing);
+  }
+  static concat(first, ...targets) {
+    const computed = new this(first);
+    targets.forEach((target) => computed.set(target));
+    return computed;
+  }
+  static accessor(header) {
+    const internals = this[$internals] = this[$internals] = {
+      accessors: {}
+    };
+    const accessors = internals.accessors;
+    const prototype2 = this.prototype;
+    function defineAccessor(_header) {
+      const lHeader = normalizeHeader(_header);
+      if (!accessors[lHeader]) {
+        buildAccessors(prototype2, _header);
+        accessors[lHeader] = true;
+      }
+    }
+    utils$1.isArray(header) ? header.forEach(defineAccessor) : defineAccessor(header);
+    return this;
   }
 };
 AxiosHeaders$1.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
@@ -2357,22 +2340,6 @@ let CancelToken$1 = class CancelToken {
       resolvePromise(token.reason);
     });
   }
-
-  /**
-   * Returns an object that contains a new `CancelToken` and a function that, when called,
-   * cancels the `CancelToken`.
-   */
-  static source() {
-    let cancel;
-    const token = new CancelToken(function executor(c) {
-      cancel = c;
-    });
-    return {
-      token,
-      cancel
-    };
-  }
-
   /**
    * Throws a `CanceledError` if cancellation has been requested.
    */
@@ -2381,7 +2348,6 @@ let CancelToken$1 = class CancelToken {
       throw this.reason;
     }
   }
-
   /**
    * Subscribe to the cancel signal
    */
@@ -2396,7 +2362,6 @@ let CancelToken$1 = class CancelToken {
       this._listeners = [listener];
     }
   }
-
   /**
    * Unsubscribe from the cancel signal
    */
@@ -2409,7 +2374,6 @@ let CancelToken$1 = class CancelToken {
       this._listeners.splice(index, 1);
     }
   }
-
   toAbortSignal() {
     const controller = new AbortController();
     const abort = (err) => {
@@ -2418,6 +2382,20 @@ let CancelToken$1 = class CancelToken {
     this.subscribe(abort);
     controller.signal.unsubscribe = () => this.unsubscribe(abort);
     return controller.signal;
+  }
+  /**
+   * Returns an object that contains a new `CancelToken` and a function that, when called,
+   * cancels the `CancelToken`.
+   */
+  static source() {
+    let cancel;
+    const token = new CancelToken(function executor(c) {
+      cancel = c;
+    });
+    return {
+      token,
+      cancel
+    };
   }
 };
 function spread$1(callback) {

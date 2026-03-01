@@ -403,15 +403,9 @@ class ReactiveEffect {
       activeEffectScope.effects.push(this);
     }
   }
-
-  get dirty() {
-    return isDirty(this);
-  }
-
   pause() {
     this.flags |= 64;
   }
-
   resume() {
     if (this.flags & 64) {
       this.flags &= -65;
@@ -421,7 +415,6 @@ class ReactiveEffect {
       }
     }
   }
-
   /**
    * @internal
    */
@@ -433,7 +426,6 @@ class ReactiveEffect {
       batch(this);
     }
   }
-
   run() {
     if (!(this.flags & 1)) {
       return this.fn();
@@ -454,7 +446,6 @@ class ReactiveEffect {
       this.flags &= -3;
     }
   }
-
   stop() {
     if (this.flags & 1) {
       for (let link = this.deps; link; link = link.nextDep) {
@@ -466,7 +457,6 @@ class ReactiveEffect {
       this.flags &= -2;
     }
   }
-
   trigger() {
     if (this.flags & 64) {
       pausedQueueEffects.add(this);
@@ -476,7 +466,6 @@ class ReactiveEffect {
       this.runIfDirty();
     }
   }
-
   /**
    * @internal
    */
@@ -484,6 +473,9 @@ class ReactiveEffect {
     if (isDirty(this)) {
       this.run();
     }
+  }
+  get dirty() {
+    return isDirty(this);
   }
 }
 let batchDepth = 0;
@@ -1649,22 +1641,6 @@ class ComputedRefImpl {
     this["__v_isReadonly"] = !setter;
     this.isSSR = isSSR;
   }
-
-  get value() {
-    const link = this.dep.track();
-    refreshComputed(this);
-    if (link) {
-      link.version = this.dep.version;
-    }
-    return this._value;
-  }
-
-  set value(newValue) {
-    if (this.setter) {
-      this.setter(newValue);
-    }
-  }
-
   /**
    * @internal
    */
@@ -1674,6 +1650,19 @@ class ComputedRefImpl {
     activeSub !== this) {
       batch(this, true);
       return true;
+    }
+  }
+  get value() {
+    const link = this.dep.track();
+    refreshComputed(this);
+    if (link) {
+      link.version = this.dep.version;
+    }
+    return this._value;
+  }
+  set value(newValue) {
+    if (this.setter) {
+      this.setter(newValue);
     }
   }
 }
