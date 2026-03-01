@@ -1,6 +1,5 @@
 package com.example.movie.config;
 
-
 import com.example.movie.common.util.IPUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -55,13 +54,13 @@ public class StartupApplicationRunner implements ApplicationRunner {
 
         String localUrl = String.format("http://localhost:%s%s", serverPort, contextPath);
         String networkUrl = String.format("http://%s:%s%s", mainIPAddress, serverPort, contextPath);
-        String knife4jUrl = localUrl + "/doc.html";
+        String scalarUrl = localUrl + "/scalar";
 
         log.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         log.info("📋 API 文档与访问地址");
         log.info("本地访问: {}", localUrl);
         log.info("网络访问: {}", networkUrl);
-        log.info("Knife4j:  {}", knife4jUrl);
+        log.info("Scalar UI: {}", scalarUrl);
         log.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
     }
 }

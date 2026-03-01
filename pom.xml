@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.13</version>
+        <version>4.0.3</version>
     </parent>
     <groupId>com.example</groupId>
     <artifactId>movie-api</artifactId>
@@ -31,18 +31,19 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>3.0.5</version>
+            <version>4.0.1</version>
         </dependency>
         <!-- MySQL -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
         </dependency>
-        <!-- Knife4j（OpenAPI3，兼容 SpringBoot 3.3，但不兼容3.4+） -->
+        <!-- Springdoc OpenAPI & Scalar UI -->
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-            <version>4.5.0</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-scalar</artifactId>
+            <version>3.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <!-- 参数校验 -->
         <dependency>

@@ -13,20 +13,19 @@ import lombok.Data;
 @Schema(description = "电影列表查询请求")
 public class MovieListRequest {
 
-    @Schema(description = "关键词，模糊搜索电影名/别名/演员/导演", example = "哈利波特")
+    @Schema(description = "关键词，模糊搜索电影名/别名/演员/导演", example = "流浪地球")
     private String keyword;
 
-    @Schema(description = "电影类型，如：剧情", example = "剧情")
+    @Schema(description = "电影类型，如：剧情", example = "冒险")
     private String type;
 
-    @Schema(description = "语言，如：英语", example = "英语")
+    @Schema(description = "语言，如：英语", example = "汉语普通话")
     private String language;
 
-    @Schema(description = "制片国家/地区，如：美国", example = "美国")
+    @Schema(description = "制片国家/地区，如：中国", example = "中国")
     private String region;
 
-    @Min(value = 1888, message = "年份不能小于1888")
-    @Schema(description = "上映年份", example = "2020")
+    @Schema(description = "上映年份", example = "null")
     private Integer year;
 
     @Min(value = 0, message = "最短时长不能为负数")

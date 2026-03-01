@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Knife4j 接口文档配置
+ * Springdoc OpenAPI & Scalar UI 接口文档配置
  */
 @Configuration
-public class Knife4jConfig {
+public class OpenApiConfig {
 
     @Bean
     public OpenAPI openAPI() {
@@ -21,6 +21,6 @@ public class Knife4jConfig {
                         .version("1.0.0")
                         .contact(new Contact()
                                 .name("movie-api")
-                                .url("http://localhost:8080/doc.html")));
+                                .url("http://localhost:8080/scalar")));
     }
 }

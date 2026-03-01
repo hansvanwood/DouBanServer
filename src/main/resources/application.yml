@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev # 选择启用的配置文件
+    active: prod # 选择启用的配置文件
   application:
     name: movie-api # 应用名称
 

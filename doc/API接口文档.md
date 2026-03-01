@@ -2,7 +2,7 @@
 
 **Base URL**：`http://localhost:8080/api`
 
-**在线文档**：`http://localhost:8080/api/doc.html`（Knife4j）
+**在线文档**：`http://localhost:8080/scalar`（Scalar UI）
 
 所有接口统一返回格式如下。日期字段统一格式：`yyyy-MM-dd`，时间字段统一格式：`yyyy-MM-dd HH:mm:ss`。
 

@@ -8,7 +8,6 @@ spring:
     restart:
       enabled: false # 生产环境下关闭自动重启
 
-knife4j:
-  enable: false # 生产环境下关闭Knife4j接口文档
-  setting:
-    language: zh_cn # 语言设置为中文
+springdoc:
+  api-docs:
+    enabled: false # 生产环境下关闭接口文档
