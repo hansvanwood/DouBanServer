@@ -1,27 +1,27 @@
 # 🎬 豆瓣电影查询系统
 
-基于 **SpringBoot 3.3.13** 的豆瓣电影数据查询后端服务，提供电影列表查询、电影详情、评论分页、工作者信息等 RESTful API。
+基于 **SpringBoot 4.0.3** 的豆瓣电影数据查询后端服务，提供电影列表查询、电影详情、评论分页、工作者信息等 RESTful API。
 
 ---
 
 ## 技术栈
 
-| 技术 | 版本 |
-|------|------|
-| Java | 21 |
-| SpringBoot | 3.3.13 |
-| MyBatis | 3.0.5 |
-| MySQL | 9.x |
-| Knife4j | 4.5.0 |
+| 技术 | 版本     |
+|------|--------|
+| Java | 21     |
+| SpringBoot | 4.0.3  |
+| MyBatis | 4.0.1  |
+| MySQL | 9.x    |
+| Scalar UI | 3.0.1  |
 | Lombok | latest |
 
 ## 数据规模
 
-| 表名 | 数据量 | 说明 |
-|------|--------|------|
-| movie | ~140,502 条 | 电影主表 |
-| movie_comment | ~4,428,475 条 | 电影评论表 |
-| movie_worker | ~70,001 条 | 电影工作者表 |
+| 表名 | 数据量     | 说明 |
+|------|---------|------|
+| movie | ~56 条   | 电影主表 |
+| movie_comment | ~1254 条 | 电影评论表 |
+| movie_worker | ~247 条  | 电影工作者表 |
 
 ## 快速启动
 
@@ -66,56 +66,70 @@ mvn spring-boot:run
 
 ### 5. 访问接口文档
 
-启动成功后访问 Knife4j 在线文档：
+启动成功后访问 Scalar UI 在线文档：
 
 ```
-http://localhost:8080/api/doc.html
+http://localhost:8080/scalar
 ```
 
 ## 工程结构
 
 ```
 src/main/java/com/example/movie/
-├── MovieApplication.java           # 启动类
-├── common/                         # 公共层
-│   ├── Result.java                 # 统一返回体
-│   ├── PageResult.java             # 分页返回体
-│   ├── ResultCode.java             # 状态码枚举
-│   ├── exception/                  # 异常处理
-│   │   ├── BusinessException.java
-│   │   └── GlobalExceptionHandler.java
-│   └── util/
-│       └── IPUtil.java
-├── config/                         # 配置类
-│   ├── Knife4jConfig.java
-│   ├── CorsConfig.java
-│   └── StartupApplicationRunner.java
-├── controller/                     # 控制器
-│   ├── MovieController.java
-│   ├── MovieCommentController.java
-│   └── MovieWorkerController.java
-├── service/                        # 业务层
-│   ├── MovieService.java
-│   ├── MovieCommentService.java
-│   └── MovieWorkerService.java
-├── dao/                            # 数据访问层
-│   ├── MovieDao.java
-│   ├── MovieCommentDao.java
-│   └── MovieWorkerDao.java
-├── dto/                            # 数据传输对象
-│   ├── request/
-│   │   ├── MovieListRequest.java
-│   │   └── MovieCommentPageRequest.java
-│   └── response/
-│       ├── MovieOverviewResponse.java
-│       ├── MovieDetailResponse.java
-│       ├── MovieCommentResponse.java
-│       ├── MovieStatsResponse.java
-│       └── MovieWorkerResponse.java
-└── entity/                         # 实体类
-    ├── Movie.java
-    ├── MovieComment.java
-    └── MovieWorker.java
+├── src/main/java/com/example/movie/
+│   ├── MovieApplication.java
+│   ├── common/
+│   │   ├── Result.java                    # 统一单数据返回体
+│   │   ├── PageResult.java                # 统一分页返回体
+│   │   ├── ResultCode.java                # 全局状态码枚举
+│   │   ├── MovieFilterConstants.java      # 电影筛选条件常量（地区/语言/类型，区分 dev/prod）
+│   │   ├── exception/
+│   │   │   ├── BusinessException.java
+│   │   │   └── GlobalExceptionHandler.java
+│   │   └── util/
+│   │       └── IPUtil.java                # IP 工具类
+│   ├── config/
+│   │   ├── OpenApiConfig.java             # Springdoc OpenAPI & Scalar UI 配置
+│   │   ├── CorsConfig.java               # 跨域配置
+│   │   ├── WebConfig.java                # Web 配置
+│   │   └── StartupApplicationRunner.java  # 启动后打印信息
+│   ├── controller/
+│   │   ├── MovieController.java           # 电影相关接口（列表/详情/统计/筛选条件）
+│   │   ├── MovieCommentController.java    # 电影评论接口（独立 Controller）
+│   │   └── MovieWorkerController.java     # 电影工作者接口
+│   ├── service/
+│   │   ├── MovieService.java              # 电影业务逻辑（无 Impl）
+│   │   ├── MovieCommentService.java       # 评论业务逻辑（无 Impl）
+│   │   └── MovieWorkerService.java        # 工作者业务逻辑（无 Impl）
+│   ├── dao/
+│   │   ├── MovieDao.java                  # MyBatis Mapper 接口即 Dao，加 @Mapper
+│   │   ├── MovieCommentDao.java
+│   │   └── MovieWorkerDao.java
+│   ├── dto/
+│   │   ├── request/
+│   │   │   ├── MovieListRequest.java
+│   │   │   └── MovieCommentPageRequest.java
+│   │   └── response/
+│   │       ├── MovieOverviewResponse.java
+│   │       ├── MovieDetailResponse.java
+│   │       ├── MovieCommentResponse.java
+│   │       ├── MovieStatsResponse.java    # 统计数据响应
+│   │       └── MovieWorkerResponse.java
+│   └── entity/
+│       ├── Movie.java
+│       ├── MovieComment.java
+│       └── MovieWorker.java
+├── src/main/resources/
+│   ├── application.yml
+│   ├── application-dev.yml                # 开发环境配置
+│   ├── application-prod.yml               # 生产环境配置
+│   ├── logback.xml                        # 日志配置（非 logback-spring.xml）
+│   ├── douban_movie_dev.sql               # 初始化 SQL 数据
+│   └── mapper/
+│       ├── MovieMapper.xml
+│       ├── MovieCommentMapper.xml
+│       └── MovieWorkerMapper.xml
+└── pom.xml
 ```
 
 ## API 概览
