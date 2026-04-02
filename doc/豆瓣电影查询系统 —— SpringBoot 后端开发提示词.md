@@ -69,7 +69,7 @@ CREATE TABLE `movie_worker` (
 ```
 
 > **重要字段说明：**
-> - `movie.cover`：类型为 `varbinary(512)`，存储的是封面文件名的二进制编码（如 PNG 文件名的 UTF-8 字节），Java 实体中映射为 `String` 类型。
+> - `movie.cover`：类型为 `varchar(512)`，存储的是封面文件的本地地址，Java 实体中映射为 `String` 类型。
 > - `movie.actor_ids` 与 `movie.director_ids`：格式为 `姓名:ID|姓名:ID`，通过此字段解析出 `worker_id`，再关联 `movie_worker` 表查询工作者详情。解析逻辑在 Service 层用 Java 代码完成，不在 SQL 中处理。
 > - `movie.type`、`movie.languages`、`movie.regions`：多值字段，值之间用 `/`（斜杠）分隔，筛选时使用 `LIKE '%值%'` 处理。
 
@@ -548,7 +548,7 @@ IP 工具类，用于获取本机局域网 IP 地址，供启动信息展示使�
 
 ## 十一、注意事项与坑点提示
 
-1. **cover 字段类型**：`movie.cover` 在数据库中是 `varbinary(512)` 类型，存储的是文件名的二进制编码。Java 实体中映射为 `String`，MyBatis 会自动处理转换。
+1. **cover 字段类型**：`movie.cover`：类型为 `varchar(512)`，存储的是封面文件的本地地址。Java 实体中映射为 `String`，MyBatis 会自动处理转换。
 
 2. **多值字段筛选**：`type`、`languages`、`regions` 存储格式为 `喜剧/奇幻/冒险` 或 `英语 / 法语`，筛选时用 `LIKE '%值%'` 即可，注意边界误匹配问题。
 
