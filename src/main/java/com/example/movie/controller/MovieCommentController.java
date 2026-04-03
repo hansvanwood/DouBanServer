@@ -28,7 +28,7 @@ public class MovieCommentController {
     /**
      * 电影评论分页
      */
-    @GetMapping("/{movieId}/comments")
+    @GetMapping("/movies/{movieId}/comments")
     @Operation(summary = "电影评论分页", description = "根据电影ID分页查询评论，按评论时间倒序")
     public PageResult<MovieCommentResponse> getMovieComments(
             @Parameter(description = "电影ID") @PathVariable Integer movieId,
