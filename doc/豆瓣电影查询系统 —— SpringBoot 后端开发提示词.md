@@ -307,9 +307,9 @@ sortOrder 只允许 asc/desc，否则默认 desc
 
 ### 接口四：电影评论分页（独立 Controller）
 
-**`GET /api/comments/{movieId}`**
+**`GET /api/movies/{movieId}/comments`**
 
-> **注意**：评论接口位于独立的 `MovieCommentController`（路径前缀 `/api/comments`），不在 `MovieController` 中。
+> **注意**：评论接口位于独立的 `MovieCommentController`（路径前缀 `/api`），不在 `MovieController` 中。
 
 **请求参数 `MovieCommentPageRequest`（Query 参数）：**
 

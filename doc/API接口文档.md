@@ -203,7 +203,7 @@
 
 ## 四、电影评论分页
 
-`GET /comments/{movieId}`
+`GET /movies/{movieId}/comments`
 
 ### 路径参数
 
@@ -221,7 +221,7 @@
 ### 请求示例
 
 ```
-GET /api/comments/1291546?pageNum=1&pageSize=10
+GET /api/movies/1291546/comments?pageNum=1&pageSize=10
 ```
 
 ### 响应示例

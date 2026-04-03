@@ -1,9 +1,9 @@
 import {
-    _ as _export_sfc,
-    a as openBlock,
-    b as createBaseVNode,
-    c as createElementBlock,
-    d as defineComponent
+  _ as _export_sfc,
+  a as openBlock,
+  b as createBaseVNode,
+  c as createElementBlock,
+  d as defineComponent
 } from "./index.js";
 
 const _hoisted_1 = { class: "error-page" };

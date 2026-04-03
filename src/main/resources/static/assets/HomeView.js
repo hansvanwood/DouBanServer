@@ -1,20 +1,20 @@
 import {
-    _ as _export_sfc,
-    a as openBlock,
-    b as createBaseVNode,
-    c as createElementBlock,
-    d as defineComponent,
-    e as renderList,
-    F as Fragment,
-    f as createTextVNode,
-    g as createVNode,
-    h as createCommentVNode,
-    n as normalizeClass,
-    o as onMounted,
-    r as ref,
-    t as toDisplayString,
-    u as useRouter,
-    w as watch
+  _ as _export_sfc,
+  a as openBlock,
+  b as createBaseVNode,
+  c as createElementBlock,
+  d as defineComponent,
+  e as renderList,
+  F as Fragment,
+  f as createTextVNode,
+  g as createVNode,
+  h as createCommentVNode,
+  n as normalizeClass,
+  o as onMounted,
+  r as ref,
+  t as toDisplayString,
+  u as useRouter,
+  w as watch
 } from "./index.js";
 import {f as fetchMovieStats} from "./movie.js";
 import {u as useMovieStore} from "./movieStore.js";

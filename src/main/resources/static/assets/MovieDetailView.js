@@ -1,34 +1,34 @@
 import {
-    _ as _export_sfc,
-    a as openBlock,
-    A as resolveComponent,
-    b as createBaseVNode,
-    c as createElementBlock,
-    d as defineComponent,
-    e as renderList,
-    F as Fragment,
-    f as createTextVNode,
-    g as createVNode,
-    h as createCommentVNode,
-    m as unref,
-    n as normalizeClass,
-    o as onMounted,
-    p as createBlock,
-    r as ref,
-    s as computed,
-    t as toDisplayString,
-    u as useRouter,
-    w as watch,
-    x as useRoute,
-    y as withCtx,
-    z as normalizeStyle
+  _ as _export_sfc,
+  a as openBlock,
+  A as resolveComponent,
+  b as createBaseVNode,
+  c as createElementBlock,
+  d as defineComponent,
+  e as renderList,
+  F as Fragment,
+  f as createTextVNode,
+  g as createVNode,
+  h as createCommentVNode,
+  m as unref,
+  n as normalizeClass,
+  o as onMounted,
+  p as createBlock,
+  r as ref,
+  s as computed,
+  t as toDisplayString,
+  u as useRouter,
+  w as watch,
+  x as useRoute,
+  y as withCtx,
+  z as normalizeStyle
 } from "./index.js";
 import {e as fetchMovieDetail, g as getPosterUrl, r as request} from "./movie.js";
 import {f as formatDate, g as getInitial, h as hashColor, p as parseWorkerIds} from "./parse.js";
 import {B as Breadcrumb} from "./Breadcrumb.js";
 import {P as Pagination} from "./Pagination.js";
 
-const fetchComments = (movieId, pageNum = 1, pageSize = 20) => request.get(`/comments/${movieId}`, { params: { pageNum, pageSize } });
+const fetchComments = (movieId, pageNum = 1, pageSize = 20) => request.get(`/movies/${movieId}/comments`, { params: { pageNum, pageSize } });
 const _hoisted_1$1 = {
   key: 0,
   viewBox: "0 0 24 24",

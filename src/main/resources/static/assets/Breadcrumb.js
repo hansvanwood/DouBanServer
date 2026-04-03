@@ -1,17 +1,17 @@
 import {
-    _ as _export_sfc,
-    a as openBlock,
-    A as resolveComponent,
-    b as createBaseVNode,
-    c as createElementBlock,
-    d as defineComponent,
-    e as renderList,
-    F as Fragment,
-    f as createTextVNode,
-    h as createCommentVNode,
-    p as createBlock,
-    t as toDisplayString,
-    y as withCtx
+  _ as _export_sfc,
+  a as openBlock,
+  A as resolveComponent,
+  b as createBaseVNode,
+  c as createElementBlock,
+  d as defineComponent,
+  e as renderList,
+  F as Fragment,
+  f as createTextVNode,
+  h as createCommentVNode,
+  p as createBlock,
+  t as toDisplayString,
+  y as withCtx
 } from "./index.js";
 
 const _hoisted_1 = { class: "breadcrumb-bar" };
