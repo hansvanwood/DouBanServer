@@ -19,7 +19,7 @@ CREATE TABLE `movie` (
   `movie_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '电影名称',
   `movie_alias` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '电影别名',
   `actors` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '演员',
-  `cover` varbinary(512) DEFAULT NULL COMMENT '电影封面地址',
+  `cover` varchar(512) DEFAULT NULL COMMENT '电影封面地址',
   `directors` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '导演',
   `douban_score` double DEFAULT NULL COMMENT '豆瓣评分',
   `douban_votes` int DEFAULT NULL COMMENT '豆瓣投票数',
