@@ -71,8 +71,10 @@ public class MovieService {
             sortOrder = sortOrder.toLowerCase();
         }
 
+        String escapedKeyword = escapeLikeKeyword(request.getKeyword());
+
         // 模糊搜索关键词处理
-        String keyword = StringUtils.hasText(request.getKeyword()) ? "%" + request.getKeyword() + "%" : null;
+        String keyword = StringUtils.hasText(escapedKeyword) ? "%" + escapedKeyword + "%" : null;
         String type = StringUtils.hasText(request.getType()) ? "%" + request.getType() + "%" : null;
         String language = StringUtils.hasText(request.getLanguage()) ? "%" + request.getLanguage() + "%" : null;
         String region = StringUtils.hasText(request.getRegion()) ? "%" + request.getRegion() + "%" : null;
@@ -160,4 +162,12 @@ public class MovieService {
                 : MovieFilterConstants.DEV_TYPES;
     }
 
+    private String escapeLikeKeyword(String keyword) {
+        if (!StringUtils.hasText(keyword)) return null;
+        String escaped = keyword
+                .replace("\\", "\\\\")
+                .replace("%", "\\%")
+                .replace("_", "\\_");
+        return "%" + escaped + "%";
+    }
 }

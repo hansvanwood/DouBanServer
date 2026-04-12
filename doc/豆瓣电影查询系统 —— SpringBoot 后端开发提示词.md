@@ -257,7 +257,7 @@ public class MovieController {
 | year | Integer | 否 | min=1888 | 上映年份                                                                                      |
 | minMinutes | Integer | 否 | min=0 | 最短时长（分钟）                                                                                  |
 | maxMinutes | Integer | 否 | min=0 | 最长时长（分钟）                                                                                  |
-| sortField | String | 否 | 无 | 排序字段，枚举值：movie_name / movie_alias / release_date / douban_score / minutes，默认 douban_score |
+| sortField | String | 否 | 无 | 排序字段，枚举值：`movie_name` / `movie_alias` / `release_date` / `douban_score` / `minutes`，默认 `douban_score` |
 | sortOrder | String | 否 | 无 | 排序方向：asc / desc，默认 desc                                                                   |
 | pageNum | Integer | 是 | min=1 | 页码                                                                                        |
 | pageSize | Integer | 是 | min=1, max=100 | 每页条数                                                                                      |
@@ -270,7 +270,7 @@ public class MovieController {
 - keyword 用 `AND (movie_name LIKE #{kw} OR movie_alias LIKE #{kw} OR actors LIKE #{kw} OR directors LIKE #{kw})`，kw 值为 `%keyword%`
 - type/language/region 筛选用 `AND type LIKE #{type}`（值拼接为 `%值%`）
 - year 精确匹配：`AND year = #{year}`
-- 时长范围：`AND minutes >= #{minMinutes} AND minutes <= #{maxMinutes}`
+- 时长范围：`AND minutes &gt;= #{minMinutes}` 和 `AND minutes &lt;= #{maxMinutes}`（XML 中 `>=` 必须写成 `&gt;=`，`<=` 必须写成 `&lt;=`，详见第十一章坑点 11）
 - 排序：`ORDER BY ${sortField} ${sortOrder}`，**sortField 在 Service 层做白名单校验后才传入**
 - 分页：使用 `LIMIT #{offset}, #{pageSize}` 手动分页，COUNT 查询单独写一个方法
 
@@ -316,7 +316,7 @@ sortOrder 只允许 asc/desc，否则默认 desc
 | 字段 | 类型 | 必填 | 默认值 | 说明 |
 |------|------|------|-------|------|
 | pageNum | Integer | 否 | 1 | 页码 |
-| pageSize | Integer | 否 | 20 | 每页条数，最大 50 |
+| pageSize | Integer | 否 | 20 | 每页条数，最大 200 |
 
 **响应：`PageResult<MovieCommentResponse>`**，按 comment_time 倒序
 
@@ -560,13 +560,37 @@ IP 工具类，用于获取本机局域网 IP 地址，供启动信息展示使�
 
 6. **entity 字段类型**：`movie.year` 在 MySQL 中是 `YEAR` 类型，Java 实体映射为 `Integer`；`douban_votes` 和 `minutes` 映射为 `Integer`；`douban_score` 映射为 `Double`。
 
-7. **评论接口独立**：评论分页接口拆分到独立的 `MovieCommentController`（`/api/comments/{movieId}`）和 `MovieCommentService` 中，不在 `MovieController` 和 `MovieService` 里。
+7. **评论接口独立**：评论分页接口拆分到独立的 `MovieCommentController`（`/api/movies/{movieId}/comments`）和 `MovieCommentService` 中，不在 `MovieController` 和 `MovieService` 里。`MovieCommentController` 的 `@RequestMapping` 为 `/api`，接口方法路径为 `/movies/{movieId}/comments`。
 
 8. **统计数据缓存**：统计接口使用类变量 `volatile` + 双重检查锁定（DCL）实现缓存，因为数据库数据不变，缓存永不失效，不需要定时器。
 
 9. **筛选条件环境区分**：三个筛选条件列表接口（regions/languages/types）根据 `spring.profiles.active` 配置区分 dev/prod 环境，返回不同数量的选项。
 
 10. **Scalar UI SpringBoot 4 兼容**：必须使用 `springdoc-openapi-starter-webmvc-scalar`，不能使用旧版 Knife4j。配置类为 `OpenApiConfig`（非 `Knife4jConfig`）。
+
+11. **MyBatis XML 比较运算符转义**：MyBatis 的 Mapper XML 文件本质是 XML 文档，`<` 和 `>` 是 XML 特殊字符，**必须使用转义字符**，否则 XML 解析直接报错。常见对照表：
+    - `<` → `&lt;`
+    - `>` → `&gt;`
+    - `<=` → `&lt;=`
+    - `>=` → `&gt;=`
+    - 例如 SQL 条件 `minutes >= 90` 在 XML 中必须写成 `minutes &amp;gt;= 90`
+    - 另一种方案是使用 `<![CDATA[ ]]>` 包裹，如 `<![CDATA[ minutes >= 90 ]]>`，但可读性较差，不推荐大面积使用
+
+12. **MyBatis LIKE 模糊查询特殊字符注入**：当用户输入的搜索关键词包含 `%` 或 `_` 时，这两个字符在 MySQL 的 `LIKE` 语法中是通配符（`%` 匹配任意字符串，`_` 匹配单个字符），会导致意料之外的匹配结果甚至**全表扫描**，严重影响性能。
+    - **问题示例**：用户输入 `%` 作为关键词，拼接后变为 `LIKE '%%%'`，等同于 `LIKE '%'`（匹配所有行），相当于全表扫描。
+    - **解决方案**：在 Service 层拼接 `%keyword%` 之前，对 keyword 中的 `%`、`_` 和 `\` 进行转义：
+      ```java
+      private String escapeLikeKeyword(String keyword) {
+          if (!StringUtils.hasText(keyword)) return null;
+          String escaped = keyword
+              .replace("\\", "\\\\")
+              .replace("%", "\\%")
+              .replace("_", "\\_");
+          return "%" + escaped + "%";
+      }
+      ```
+    - **XML 端配合**：在 LIKE 语句中加上 `ESCAPE '\\'` 指定转义符，如：`movie_name LIKE #{keyword} ESCAPE '\\'`
+    - **当前项目现状**：当前实现未做此转义处理（直接 `"%" + keyword + "%"`），属于已知的安全隐患，生产环境应当修复。
 
 ---
 
