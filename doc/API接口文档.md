@@ -62,7 +62,7 @@
 | sortField | String | 否 | `douban_score` | 排序字段：`movie_name` / `movie_alias` / `release_date` / `minutes` / `douban_score` |
 | sortOrder | String | 否 | `desc` | 排序方向：`asc` / `desc`                                                             |
 | pageNum | Integer | 是 | 1 | 页码（≥1）                                                                          |
-| pageSize | Integer | 是 | 20 | 每页条数（1~200）                                                                     |
+| pageSize | Integer | 是 | 20 | 每页条数（1~100）                                                                     |
 
 ### 请求示例
 
@@ -100,7 +100,7 @@
       "languages": "汉语普通话",
       "regions": "中国大陆 / 中国香港",
       "minutes": 171,
-      "releaseDate": "1993-01-01 00:00:00",
+      "releaseDate": "1993-01-01",
       "year": 1993
     }
   ]
@@ -216,7 +216,7 @@
 | 参数 | 类型 | 必填 | 默认值 | 说明 |
 |------|------|------|--------|------|
 | pageNum | Integer | 否 | 1 | 页码（≥1） |
-| pageSize | Integer | 否 | 20 | 每页条数（1~200） |
+| pageSize | Integer | 否 | 20 | 每页条数（1~100） |
 
 ### 请求示例
 
@@ -284,7 +284,7 @@ GET /api/workers/1003494
     "gender": "男",
     "nameEn": "Leslie Cheung",
     "nameZh": "张国荣",
-    "birth": "1956-09-12 00:00:00",
+    "birth": "1956-09-12",
     "birthplace": "中国,香港",
     "constellatory": "处女座",
     "profession": "演员/歌手",
@@ -326,9 +326,13 @@ GET /api/workers/1003494
   "data": null
 }
 ```
-## 七、可筛选的地区、语言、类型
+---
 
-### 获取可筛选的国家或地区列表
+## 七、筛选条件列表
+
+> 以下三个接口返回的数据根据 `spring.profiles.active` 区分 dev/prod 环境，示例为 dev 环境数据。
+
+### 7.1 获取国家或地区列表
 
 `GET /movies/regions`
 
@@ -342,7 +346,9 @@ GET /api/workers/1003494
 }
 ```
 
-### 获取可筛选的电影语言列表
+---
+
+### 7.2 获取电影语言列表
 
 `GET /movies/languages`
 
@@ -356,9 +362,11 @@ GET /api/workers/1003494
 }
 ```
 
-### 获取可筛选的电影类型列表
+---
 
-`GET /movies/genres`
+### 7.3 获取电影类型列表
+
+`GET /movies/types`
 
 #### 响应示例
 
@@ -366,6 +374,6 @@ GET /api/workers/1003494
 {
   "code": 200,
   "message": "操作成功",
-  "data": ["喜剧","科幻","动作","奇幻","冒险","战争","剧情","动画","爱情","悬疑","犯罪","惊悚","传记","运动","歌舞","家庭","音乐","历史","灾难","真人秀","剧情","奇幻","冒险","家庭","爱情","同性","动作","犯罪","音乐","惊悚","动画","歌舞","科幻","喜剧","儿童","历史","战争","悬疑","传记","西部","恐怖","古装","武侠","灾难","黑色电影","运动","惊栗","荒诞","悬念","戏曲","记录","Adult","Reality-TV","Comedy","纪录片","短片","懸疑 Mystery","舞台艺术","鬼怪","真人秀","劇情 Drama","驚悚 Thriller","紀錄片 Documentary","音樂 Music","News","脱口秀","傳記 Biography","愛情 Romance","動作 Action","Talk-Show","動畫 Animation","兒童 Kids","喜劇 Comedy","歷史 History"]
+  "data": ["喜剧","科幻","动作","奇幻","冒险","战争","剧情","动画","爱情","悬疑","犯罪","惊悚","传记","运动","歌舞","家庭","音乐","历史","灾难","真人秀"]
 }
 ```
